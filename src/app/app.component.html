@@ -8,8 +8,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                <li class="nav-item dropdown" routerLinkActive="active">
+                    <a class="nav-link dropdown-toggle" routerLink="accueil" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Produits
                     </a>
@@ -17,23 +17,24 @@
                         <li><a class="dropdown-item" href="#">Ajouter</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                <li class="nav-item dropdown" routerLinkActive="active">
+                    <a *ngIf="authService.isAdmin()" class="nav-link dropdown-toggle" routerLink="user-list" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Utilisateur
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Ajouter</a></li>
+                        <li routerLinkActive="active"><a class="dropdown-item" routerLink="auth/signup"> <i class="fa fa-user-plus" aria-hidden="true"></i> Ajouter</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown" style="position: fixed; right: 20px;">
+                <li class="nav-item dropdown" style="position: fixed; right: 20px;"  routerLinkActive="active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        [username]
+                        <i class="fa fa-user" aria-hidden="true"></i> {{authService.loggedUser}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Login</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li routerLinkActive="active"><a *ngIf="!authService.isloggedIn" class="dropdown-item" routerLink="auth/signin"> <i class="fa fa-sign-in" aria-hidden="true"></i> Connexion</a></li>
+                        <li routerLinkActive="active"><a *ngIf="authService.isloggedIn" class="dropdown-item" style="cursor:pointer" (click) = "onLogout()"> <i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion</a></li>
+                        <li routerLinkActive="active"><a class="dropdown-item" routerLink="updateUser"> <i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
                     </ul>
                 </li>
             </ul>
@@ -41,4 +42,6 @@
     </div>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
